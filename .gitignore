@@ -208,6 +208,7 @@ __marimo__/
 
 
 # custom
+.vscode/
 examples/
 dataset/
 logs/
