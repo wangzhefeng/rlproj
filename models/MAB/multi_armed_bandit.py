@@ -14,22 +14,13 @@
 __all__ = []
 
 # python libraries
-import os
 import sys
 from pathlib import Path
 ROOT = str(Path.cwd())
 if ROOT not in sys.path:
     sys.path.append(ROOT)
-import warnings
-warnings.filterwarnings("ignore")
 
 import numpy as np
-import matplotlib.pyplot as plt
-
-# global variable
-LOGGING_LABEL = Path(__file__).name[:-3]
-os.environ['LOG_NAME'] = LOGGING_LABEL
-from utils.log_util import logger
 
 
 class BernoulliBandit:
@@ -55,16 +46,9 @@ class BernoulliBandit:
 
 
 
-
 # 测试代码 main 函数
 def main():
-    # 设定随机种子，使实验具有可重复性
-    np.random.seed(1)
-    # 具有 10 个拉杆的多臂老虎机
-    K = 10
-    bandit_10_arm = BernoulliBandit(K)
-    logger.info(f"随机生成了一个 {K} 臂伯努利老虎机")
-    logger.info(f"获奖概率最大的拉杆为 {bandit_10_arm.best_idx} 号, 其获奖概率为 {bandit_10_arm.best_prob:.4f}")
+    pass
 
 if __name__ == "__main__":
     main()

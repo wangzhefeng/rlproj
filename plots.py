@@ -25,7 +25,35 @@ import warnings
 warnings.filterwarnings("ignore")
 
 import matplotlib.pyplot as plt
-
+plt.rcParams['font.sans-serif']=['SimHei', 'Arial Unicode MS'] # 用来正常显示中文标签
+plt.rcParams['axes.unicode_minus'] = False # 用来显示负号
+plt.style.use('seaborn-v0_8-whitegrid')
+plt.rcParams['figure.autolayout'] = True # layout
+plt.rcParams['axes.grid'] = True # grid
+plt.rc(
+    "figure",
+    autolayout=True,
+    figsize=(8.0, 4.5),
+    titleweight="bold",
+    titlesize=18,
+)
+plt.rc(
+    "axes",
+    labelweight="bold",
+    labelsize="large",
+    titleweight="bold",
+    titlesize=16,
+    titlepad=10,
+)
+line_plot_params = dict(
+    color="C0",
+    linestyle="-",
+    linewidth=2,
+    markeredgecolor="0.25",
+    markerfacecolor="0.25",
+    # legend=True,
+    # label="",
+)
 # global variable
 LOGGING_LABEL = Path(__file__).name[:-3]
 os.environ['LOG_NAME'] = LOGGING_LABEL
@@ -42,12 +70,14 @@ def plot_results(solvers: List, solver_names: List[str]):
     """
     for solver, solver_name in zip(solvers, solver_names):
         time_list = range(len(solver.regrets))
-        plt.plot(time_list, solver.regrets, label=solver_name)
+        plt.plot(time_list, solver.regrets, label=solver_name, 
+            # **line_plot_params
+        )
     plt.xlabel("Time steps")
     plt.ylabel("Cumlative regrets")
     plt.title(f"{solvers[0].bandit.K}-armed bandit")
     plt.legend()
-    plt.grid(visible=True)
+    # plt.grid(visible=True)
     plt.show()
 
 
