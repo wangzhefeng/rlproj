@@ -14,7 +14,6 @@
 __all__ = []
 
 # python libraries
-import os
 import sys
 from pathlib import Path
 ROOT = str(Path.cwd())
@@ -56,8 +55,6 @@ line_plot_params = dict(
 )
 # global variable
 LOGGING_LABEL = Path(__file__).name[:-3]
-os.environ['LOG_NAME'] = LOGGING_LABEL
-from utils.log_util import logger
 
 
 def plot_results(solvers: List, solver_names: List[str]):
