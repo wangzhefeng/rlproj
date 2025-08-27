@@ -32,11 +32,39 @@ from utils.log_util import logger
 
 
 def compute_return(start_index, chain, rewards, gamma):
+    """
+    计算回报
+
+    Args:
+        start_index (_type_): _description_
+        chain (_type_): _description_
+        rewards (_type_): _description_
+        gamma (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     G = 0
     for i in reversed(range(start_index, len(chain))):
         G = gamma * G + rewards[chain[i] - 1]
 
     return G
+
+
+def compute_value(P, rewards, gamma, states_num):
+    """
+    利用贝尔曼方程的矩阵形式计算解析解
+
+    Args:
+        P (_type_): _description_
+        rewards (_type_): _description_
+        gamma (_type_): _description_
+        states_num (_type_): 马尔可夫决策过程的状态数
+    """
+    rewards = np.array(rewards).reshape((-1, 1))
+    value = np.dot(np.linalg.inv(np.eye(states_num, states_num) - gamma * P), rewards)
+
+    return value
 
 
 
@@ -67,6 +95,10 @@ def main():
     # 马尔可夫奖励过程(S1-S6)的回报
     G = compute_return(start_index, chain, rewards, gamma)
     logger.info(f"根据本序列计算得到回报为：{G}")
+    
+    # 马尔可夫奖励过程每个状态价值
+    V = compute_value(P, rewards, gamma, states_num=6)
+    logger.info(f"马尔可夫奖励过程每个状态价值: \n{V}")
 
 if __name__ == "__main__":
     main()
