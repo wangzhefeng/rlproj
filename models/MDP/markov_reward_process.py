@@ -62,7 +62,10 @@ def compute_value(P, rewards, gamma, states_num):
         states_num (_type_): 马尔可夫决策过程的状态数
     """
     rewards = np.array(rewards).reshape((-1, 1))
-    value = np.dot(np.linalg.inv(np.eye(states_num, states_num) - gamma * P), rewards)
+    value = np.dot(
+        np.linalg.inv(np.eye(states_num, states_num) - gamma * P), 
+        rewards
+    )
 
     return value
 
